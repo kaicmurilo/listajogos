@@ -13,6 +13,22 @@ jogo2 = Jogo('God of War', 'Rack n Slash', 'PS2')
 jogo3 = Jogo('Mortal Kombat', 'Luta', 'PS2')
 listaJogos = [jogo1, jogo2, jogo3]
 
+
+class Usuario:
+    def __init__(self, nome, nickname, senha) -> None:
+        self.nome = nome
+        self.nickname = nickname
+        self.senha = senha
+
+
+usuario1 = Usuario("Kaic Nunes", "kaic", "kaic")
+usuario2 = Usuario("Camila Ferreira", "mila", "paozinho")
+usuario3 = Usuario("Guilherme Louro", "louro", "python")
+
+usuarios = {usuario1.nickname: usuario1,
+            usuario2.nickname: usuario2,
+            usuario3.nickname: usuario3}
+
 app = Flask(__name__)
 app.secret_key = 'kaicnunes'
 
@@ -49,17 +65,31 @@ def login():
 
 @app.route('/autenticar',  methods=['POST',])
 def autenticar():
-    if 'alohomora' == request.form['senha']:
-        session['usuario_logado'] = request.form['usuario']
-        flash(session['usuario_logado'] + ' logado com sucesso!')
-        proxima_pagina = request.form['proxima']
-        if (proxima_pagina == 'None'):
-            return redirect(url_for('index'))
+
+    if request.form['usuario'] in usuarios:
+        usuario = usuarios[request.form['usuario']]
+        if request.form['senha'] == usuario.senha:
+            session['usuario_logado'] = usuario.nickname
+            flash(usuario.nickname + ' logado com sucesso!')
+            proxima_pagina = request.form['proxima']
+            if (proxima_pagina == 'None'):
+                return redirect(url_for('index'))
         # return redirect('/{}'.format(proxima_pagina))
         return redirect(proxima_pagina)
     else:
         flash('Erro em credenciais!')
         return redirect(url_for('login'))
+    # if 'alohomora' == request.form['senha']:
+    #     session['usuario_logado'] = request.form['usuario']
+    #     flash(session['usuario_logado'] + ' logado com sucesso!')
+    #     proxima_pagina = request.form['proxima']
+    #     if (proxima_pagina == 'None'):
+    #         return redirect(url_for('index'))
+    #     # return redirect('/{}'.format(proxima_pagina))
+    #     return redirect(proxima_pagina)
+    # else:
+    #     flash('Erro em credenciais!')
+    #     return redirect(url_for('login'))
 
 
 @app.route('/logout')
