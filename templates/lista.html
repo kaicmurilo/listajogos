@@ -16,5 +16,14 @@
     </tr>
     {% endfor %}
   </tbody>
+
+  {% if usuario %}
+  <p>Logado como: {{ usuario }}</p>
+  <a href="{{url_for('novo')}}">Novo Jogo</a>  <br>  
+  <a href="{{url_for('logout')}}">Logout</a> 
+  </button>
+  {% else %}
+  <a href="{{url_for('login')}}">Login</a> 
+  {% endif %}
 </table>
 {% endblock %}

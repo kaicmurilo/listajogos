@@ -35,7 +35,8 @@ app.secret_key = 'kaicnunes'
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Jogos', jogos=listaJogos)
+    return render_template('lista.html', titulo='Jogos', jogos=listaJogos,
+                           usuario=session['usuario_logado'])
 
 
 @app.route('/novo')
@@ -101,6 +102,7 @@ def logout():
     session['usuario_logado'] = None
     flash('Logout efetuado com sucesso!')
     return redirect(url_for('login'))
+
 
     # trecho da app
 app.run(debug=True)
