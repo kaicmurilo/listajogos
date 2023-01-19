@@ -40,6 +40,8 @@ Desvantagens da utilização de um ORM:
 
 Criar arquivo config.py na raiz com o seguinte codigo:
 
+
+----------- CONFIG.PY -------------------
 SECRET_KEY = 'sua palavra secreta'
 
 SQLALCHEMY_DATABASE_URI = \
@@ -51,4 +53,6 @@ servidor='endereco do banco',
 database='nome da database'
 )
 
+UPLOAD_PATH = os.path.dirname(os.path.abspath(__file__)) + '/uploads'
 
+----------- END -------------------
