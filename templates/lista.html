@@ -5,6 +5,9 @@
       <th>Nome</th>
       <th>Categoria</th>
       <th>Console</th>
+      {% if usuario %}
+      <th></th>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
@@ -13,6 +16,12 @@
       <td>{{jogo.nome}}</td>
       <td>{{jogo.categoria}}</td>
       <td>{{jogo.console}}</td>
+      {% if usuario %}
+      <td>
+        <a href="{{ url_for('editar', id=jogo.id)}}">Editar</a>
+        <a href="{{ url_for('deletar', id=jogo.id)}}">Deletar</a>
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>
