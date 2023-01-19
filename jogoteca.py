@@ -35,8 +35,10 @@ app.secret_key = 'kaicnunes'
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Jogos', jogos=listaJogos,
-                           usuario=session['usuario_logado'])
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return render_template('lista.html', titulo='Jogos', jogos=listaJogos)
+
+    return render_template('lista.html', titulo='Jogos', jogos=listaJogos, usuario=session['usuario_logado'])
 
 
 @app.route('/novo')
