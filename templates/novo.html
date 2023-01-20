@@ -1,15 +1,19 @@
 {% extends "template.html" %} {% block conteudo %}
 <form method="post" action="{{url_for('criar')}}" enctype="multipart/form-data">
   <figure class="img-thumbnail col-md-4">
-    <img class="img-fluid" src="{{url_for('imagem', nome_arquivo='capa_padrao.jpg')}}" alt="">
+    <img
+      class="img-fluid"
+      src="{{url_for('imagem', nome_arquivo='capa_padrao.jpg')}}"
+      alt=""
+    />
     <figcaption>
       <label class="fileContainer" for="">
         Mudar Capa
-        <input type="file" name="arquivo" accept=".jpg"/>
+        <input type="file" name="arquivo" accept=".jpg" />
       </label>
     </figcaption>
   </figure>
- 
+
   <fieldset>
     <div class="form-group">
       <label for="nome">Nome</label>
@@ -24,6 +28,7 @@
       <input type="text" id="console" name="console" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+    <a class="btn btn-danger" href="{{url_for('index')}}">Voltar</a>
   </fieldset>
 </form>
 {% endblock %}
