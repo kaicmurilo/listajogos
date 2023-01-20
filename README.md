@@ -56,3 +56,9 @@ database='nome da database'
 UPLOAD_PATH = os.path.dirname(os.path.abspath(__file__)) + '/uploads'
 
 ----------- END -------------------
+
+
+
+
+flask wtf -> validacao de campos
+pip install flask-wtf==1.0.0
