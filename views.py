@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from jogoteca import app, db
 from models import Jogos, Usuarios
-from helpers import recupera_imagem, deleta_arquivo, FormularioJogo
+from helpers import recupera_imagem, deleta_arquivo, FormularioJogo, FormularioUsuario
 import time
 
 
@@ -98,25 +98,30 @@ def deletar(id):
 
 @app.route('/login')
 def login():
+    form = FormularioUsuario()
     proxima = request.args.get('proxima')
-    return render_template('login.html', proxima=proxima)
+    return render_template('login.html', proxima=proxima, form=form)
 
 
 @app.route('/autenticar',  methods=['POST',])
 def autenticar():
+    form = FormularioUsuario(request.form)
     usuario = Usuarios.query.filter_by(
-        nickname=request.form['usuario']).first()
+        nickname=form.nickname.data).first()
     if usuario:
-        if request.form['senha'] == usuario.senha:
+        if form.senha.data == usuario.senha:
             session['usuario_logado'] = usuario.nickname
             flash(usuario.nickname + ' logado com sucesso!')
             proxima_pagina = request.form['proxima']
             if (proxima_pagina == 'None'):
                 return redirect(url_for('index'))
-        # return redirect('/{}'.format(proxima_pagina))
-        return redirect(proxima_pagina)
+            else:
+                return redirect(proxima_pagina)
+        else:
+            flash('Erro em credenciais!')
+            return redirect(url_for('login'))
     else:
-        flash('Erro em credenciais!')
+        flash('Usuário não logado.')
         return redirect(url_for('login'))
 
 
