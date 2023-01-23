@@ -40,7 +40,6 @@ Desvantagens da utilização de um ORM:
 
 Criar arquivo config.py na raiz com o seguinte codigo:
 
-
 ----------- CONFIG.PY -------------------
 SECRET_KEY = 'sua palavra secreta'
 
@@ -53,12 +52,15 @@ servidor='endereco do banco',
 database='nome da database'
 )
 
-UPLOAD_PATH = os.path.dirname(os.path.abspath(__file__)) + '/uploads'
+UPLOAD_PATH = os.path.dirname(os.path.abspath(**file**)) + '/uploads'
 
 ----------- END -------------------
 
-
-
-
 flask wtf -> validacao de campos
 pip install flask-wtf==1.0.0
+
+O Cross-Site Request Forgery ou CSRF é uma vulnerabilidade na segurança da web que possibilita a um indivíduo mal intencionado se passar por um usuário inocente. Assim, a ameaça pode se disfarçar como o servidor e passar informações através do método POST.
+
+Diferentemente do session token e dos cookies, o CSRF Token não pode ser utilizado por um hacker mal intencionado.
+
+Dessa forma, a existência do CSRF Token é crucial em todo formulário da web, para que o envio de formulários não seja forjado por terceiros.
